@@ -29,6 +29,7 @@
         <tr>
             <th>Type</th>
             <th>Plate number</th>
+            <th>Rental Price</th>
             <th>Status</th>
             <th>Image</th>
         
@@ -39,6 +40,7 @@
         <tr>
             <td>{{ $car->type }}</td>
             <td>{{ $car->plate_number }}</td>
+            <td>{{ $car->rental_price }}</td>
             <td>
             {{ ['reserved' => 'Reserved',
             'deactivated' => 'Deactivated',
