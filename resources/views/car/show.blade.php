@@ -7,7 +7,10 @@
         Type: {{ $car->type }}<br>
         Plate Number: {{ $car->plate_number }}<br>
         Rental Price: {{ $car->rental_price }}<br>
-        Status: {{ $car->status }}<br>
+        Status: {{ ['reserved' => 'Reserved',
+            'deactivated' => 'Deactivated',
+            'not_reserved' => 'Not Reserved'
+            ][$car->status] ?? 'Unknown' }}<br>
     </div>
     <img src="{{ Storage::url($car->image_path) }}" alt="Car" width="200" height="200">
 </div>

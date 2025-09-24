@@ -39,7 +39,12 @@
         <tr>
             <td>{{ $car->type }}</td>
             <td>{{ $car->plate_number }}</td>
-            <td>{{ $car->status }}</td>
+            <td>
+            {{ ['reserved' => 'Reserved',
+            'deactivated' => 'Deactivated',
+            'not_reserved' => 'Not Reserved'
+            ][$car->status] ?? 'Unknown' }}
+            </td>
             <td><img src="{{ Storage::url($car->image_path) }}" alt="Car" width="50" height="50"></td>
             <td>
                 <form action="{{ route('car.show', $car->id) }}" method="GET" style="display:inline;">
