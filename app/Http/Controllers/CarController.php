@@ -93,6 +93,7 @@ class CarController extends Controller
         $car->rental_price = $request->input('rental_price');
         $car->status = $request->input('status', $car->status);
         if ($request->hasFile('image')) {
+            Storage::disk('public')->delete($car->image_path);
             $car->image_path = $request->file('image')->store("cars/", 'public');
         }
         $car->save();
