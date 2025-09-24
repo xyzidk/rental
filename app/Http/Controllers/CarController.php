@@ -93,7 +93,7 @@ class CarController extends Controller
         $car->rental_price = $request->input('rental_price');
         $car->status = $request->input('status', $car->status);
         if ($request->hasFile('image')) {
-            $car->image_path = $request->file('image')->store('public/images');
+            $car->image_path = $request->file('image')->store("cars/", 'public');
         }
         $car->save();
         return redirect()->route('car.index')->with('success', 'Car updated successfully.');
