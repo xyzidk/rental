@@ -21,6 +21,9 @@ class CarController extends Controller
     public function deactivate(string $id)
     {
         $car = Car::findOrFail($id);
+        if ($car->status === 'reserved') {
+            return redirect()->route('car.index')->with('error', 'Cannot deactivate a reserved car.');
+        }
         $car->status = 'deactivated';
         $car->save();
         return redirect()->route('car.index')->with('success', 'Car deactivated successfully.');
