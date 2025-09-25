@@ -30,16 +30,16 @@
                 <ul>
                 @foreach($cars as $car)
                     <li style="display: flex; align-items: center; gap: 16px;">
-    <a href="{{ route('reservation.create', [
-        'car_id' => $car->id,
-        'date_from' => $date_from,
-        'date_to' => $date_to]) }}">
-        <img src="{{ Storage::url($car->image_path) }}" alt="Car" width="50" height="50">
-    </a>
-    <span>
-        <strong>{{ $car->type }}</strong> - {{ $car->rental_price }} $/day
-    </span>
-</li>
+                    <a href="{{ route('reservation.create', [
+                        'car_id' => $car->id,
+                        'date_from' => $date_from,
+                        'date_to' => $date_to]) }}">
+                        <img src="{{ Storage::url($car->image_path) }}" alt="Car" width="50" height="50">
+                    </a>
+                    <span>
+                        <strong>{{ $car->type }}</strong> - {{ $car->rental_price }} $/day
+                    </span>
+                    </li>
                 @endforeach
                 </ul>
             @else

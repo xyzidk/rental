@@ -61,4 +61,6 @@
     </tbody>
 </table>
 
+<a href="{{ url('/') }}" style="margin-left: 9rem;">Create Reservation</a>
+
 @endsection

@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\Logic\Herd\rental\resources\views\reservation\create.blade.php -->
 @extends('layout')
 @section('content')
 @if(session('success'))
