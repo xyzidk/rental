@@ -59,7 +59,12 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
-        ]
+        ],
+        "post-install-cmd": [
+        "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+        "php artisan key:generate --ansi",
+        "php artisan storage:link"
+    ]
     },
     "extra": {
         "laravel": {
