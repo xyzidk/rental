@@ -20,6 +20,7 @@
     @csrf
     <input type="hidden" name="car_id" value="{{ $car->id }}">
     <table>
+        <th></th>
         <tr>
             <td>Name:</td>
             <td><input type="text" name="name" required></td>
@@ -59,8 +60,5 @@
         </tr>
     </table>
 </form>
-<form  method="GET" action="{{ url('/') }}" style="width: 100px">
-    @csrf
-    <button type="submit">Cancel</button>
-</form>
+<a href="{{ url('/') }}" style="margin-left: 9rem;">Cancel</a>
 @endsection
