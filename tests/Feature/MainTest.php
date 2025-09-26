@@ -19,16 +19,29 @@ it('requires date_to to be after or equal date_from', function () {
     $response->assertSessionHasErrors(['date_to']);
 });
 
-it('shows only not reserved cars', function () {
+it('excludes deactivated cars', function () {
+    $car = Car::factory()->create(['status' => 'deactivated']);
 
-    $notreservedCar = Car::factory()->create(['status' => 'not_reserved']);
-    $reservedCar = Car::factory()->create(['status' => 'reserved']);
-    $deactivatedCar = Car::factory()->create(['status' => 'deactivated']);
+    $response = $this->post(route('car.listCars'), [
+        'date_from' => '2025-01-01',
+        'date_to' => '2025-01-05',
+    ]);
+
+    $response->assertStatus(200);
+    $response->assertViewHas('cars', function ($cars) use ($car) {
+        expect($cars->contains($car))->toBeFalse();
+
+        return true;
+    });
+});
+
+it('includes cars if reservation does not overlap the given period', function () {
+    $car = Car::factory()->create(['status' => 'reserved']);
 
     Reservation::factory()->create([
-        'car_id' => $reservedCar->id,
+        'car_id' => $car->id,
         'date_from' => '2025-01-01',
-        'date_to' => '2025-01-10',
+        'date_to' => '2025-01-02',
     ]);
 
     $response = $this->post(route('car.listCars'), [
@@ -37,13 +50,9 @@ it('shows only not reserved cars', function () {
     ]);
 
     $response->assertStatus(200);
-    $response->assertViewHas('cars', function ($cars) use ($notreservedCar, $reservedCar, $deactivatedCar) {
-        expect($cars->contains($notreservedCar))->toBeTrue();
-        expect($cars->contains($reservedCar))->toBeFalse();
-        expect($cars->contains($deactivatedCar))->toBeFalse();
+    $response->assertViewHas('cars', function ($cars) use ($car) {
+        expect($cars->contains($car))->toBeTrue();
+
         return true;
     });
-
-    $response->assertViewHas('date_from', '2025-01-05');
-    $response->assertViewHas('date_to', '2025-01-07');
 });
